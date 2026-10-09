@@ -1,8 +1,8 @@
 diff --git a/node_modules/@octokit/auth-app/dist-node/index.js b/node_modules/@octokit/auth-app/dist-node/index.js
-index 88a7e29..5ae34eb 100644
+index 88a7e29..e3bac43 100644
 --- a/node_modules/@octokit/auth-app/dist-node/index.js
 +++ b/node_modules/@octokit/auth-app/dist-node/index.js
-@@ -381,10 +381,8 @@ async function hook(state, request, route, parameters) {
+@@ -381,13 +381,16 @@ async function hook(state, request, route, parameters) {
        state.log.warn(
          `[@octokit/auth-app] GitHub API time and system time are different by ${diff} seconds. Retrying request with the difference accounted for.`
        );
@@ -15,3 +15,11 @@ index 88a7e29..5ae34eb 100644
        endpoint.headers.authorization = `bearer ${token3}`;
        return request(endpoint);
      }
++    if (typeof response.headers.date !== "undefined") {
++      state.timeDifference = Math.floor(
++        (Date.parse(response.headers.date) - Date.parse((/* @__PURE__ */ new Date()).toString())) / 1e3
++      );
++    }
+     return response;
+   }
+   if (requiresBasicAuth(url)) {

@@ -22847,6 +22847,11 @@ async function hook4(state, request2, route, parameters) {
       endpoint2.headers.authorization = `bearer ${token3}`;
       return request2(endpoint2);
     }
+    if (typeof response.headers.date !== "undefined") {
+      state.timeDifference = Math.floor(
+        (Date.parse(response.headers.date) - Date.parse((/* @__PURE__ */ new Date()).toString())) / 1e3
+      );
+    }
     return response;
   }
   if (requiresBasicAuth(url)) {
