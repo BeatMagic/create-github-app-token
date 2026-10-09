@@ -22842,10 +22842,8 @@ async function hook4(state, request2, route, parameters) {
       state.log.warn(
         `[@octokit/auth-app] GitHub API time and system time are different by ${diff} seconds. Retrying request with the difference accounted for.`
       );
-      const { token: token3 } = await getAppAuthentication({
-        ...state,
-        timeDifference: diff
-      });
+      state.timeDifference = diff;
+      const { token: token3 } = await getAppAuthentication(state);
       endpoint2.headers.authorization = `bearer ${token3}`;
       return request2(endpoint2);
     }

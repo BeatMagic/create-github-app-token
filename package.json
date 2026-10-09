@@ -12,7 +12,8 @@
     "build": "esbuild main.js post.js --bundle --outdir=dist --out-extension:.js=.cjs --platform=node --packages=bundle",
     "test": "c8 --100 node --test tests/index.js",
     "coverage": "c8 report --reporter html",
-    "postcoverage": "open-cli coverage/index.html"
+    "postcoverage": "open-cli coverage/index.html",
+    "postinstall": "patch-package"
   },
   "license": "MIT",
   "dependencies": {
@@ -27,6 +28,7 @@
     "c8": "^11.0.0",
     "esbuild": "^0.28.0",
     "open-cli": "^9.0.0",
+    "patch-package": "^8.0.1",
     "undici": "^8.2.0",
     "yaml": "^2.8.4"
   }

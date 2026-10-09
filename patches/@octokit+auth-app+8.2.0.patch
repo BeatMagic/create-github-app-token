@@ -1,0 +1,17 @@
+diff --git a/node_modules/@octokit/auth-app/dist-node/index.js b/node_modules/@octokit/auth-app/dist-node/index.js
+index 88a7e29..5ae34eb 100644
+--- a/node_modules/@octokit/auth-app/dist-node/index.js
++++ b/node_modules/@octokit/auth-app/dist-node/index.js
+@@ -381,10 +381,8 @@ async function hook(state, request, route, parameters) {
+       state.log.warn(
+         `[@octokit/auth-app] GitHub API time and system time are different by ${diff} seconds. Retrying request with the difference accounted for.`
+       );
+-      const { token: token3 } = await getAppAuthentication({
+-        ...state,
+-        timeDifference: diff
+-      });
++      state.timeDifference = diff;
++      const { token: token3 } = await getAppAuthentication(state);
+       endpoint.headers.authorization = `bearer ${token3}`;
+       return request(endpoint);
+     }
